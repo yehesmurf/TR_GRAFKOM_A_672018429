@@ -8,6 +8,8 @@ GLuint _textureID1;
 GLuint _textureID2;
 GLuint _textureID3;
 
+bool check = true;
+
 int is_depth;
 
 void init(void) {
@@ -692,6 +694,21 @@ void keyboard(unsigned char key, int x, int y) {
 	tampil();
 }
 
+void mouse(int button, int state, int xmouse, int ymouse) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		check = true;
+		printf("Left Mouse Clicked\n");
+		glTranslatef(3.0, 0.0, 0.0);
+
+	}
+
+	else if (button == GLUT_RIGHT_BUTTON && state == GLUT_DOWN) {
+		printf("Right Mouse Clicked\n");
+		glTranslatef(-3.0, 0.0, 0.0);
+	}
+	glutPostRedisplay();
+}
+
 void ukuran(int lebar, int tinggi) {
 	if (tinggi == 0) tinggi = 1;
 
@@ -713,6 +730,7 @@ int main(int argc, char** argv) {
 	init();
 	glutDisplayFunc(tampil);
 	glutKeyboardFunc(keyboard);
+	glutMouseFunc(mouse);
 	glutReshapeFunc(ukuran);
 	glutMainLoop();
 	return 0;
